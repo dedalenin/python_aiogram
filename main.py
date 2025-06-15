@@ -21,7 +21,7 @@ def chec_on_start(message: Message) -> bool: # Примитивный фильт
     return message.text == '/start'
 
 
-@dp.message(chec_on_start) # Применение фильтра для диспетчера
+@dp.message(lambda msg: msg.text == '/start') # Применение фильтра для диспетчера через анонимную функцию
 async def ok(message: Message) -> None:
     await message.answer(text='ok start')
 
