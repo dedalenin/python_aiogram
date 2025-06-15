@@ -7,23 +7,21 @@ BOT_TOKEN = ''  # Токен бота
 
 bot = Bot(token=BOT_TOKEN)  #
 dp = Dispatcher()
-
-ATTEMPTS = 5
-
-user = {}
+admins = []
+admins.append()
 
 
-def get_ran_number():
-    return random.randint(1, 100)
+
+def check(message: Message) -> bool:
+    if (message.from_user.id in admins and message.text == '/admin'):
+        return True
+    else:
+        return False
 
 
-def chec_on_start(message: Message) -> bool: # Примитивный фильтр для диспетчера
-    return message.text == '/start'
-
-
-@dp.message(lambda msg: msg.text == '/start') # Применение фильтра для диспетчера через анонимную функцию
-async def ok(message: Message) -> None:
-    await message.answer(text='ok start')
+@dp.message(check)
+async def admin_menu(message: Message):
+    await message.answer('вы админ! Ура!')
 
 
 if __name__ == '__main__':  # запуск бота
